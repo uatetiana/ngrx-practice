@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { StoreModule, MetaReducer } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
+import { EffectsModule, provideEffects } from '@ngrx/effects';
 
 // not used in production
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -22,14 +22,15 @@ export const metaReducers: MetaReducer<any>[] = !environment.production
 
 // bootstrap
 import { AppComponent } from './containers/app/app.component';
-import { ProductsModule } from 'src/products/products.module';
+import { ProductsModule } from './../products/products.module';
+import { effects } from './../products/store';
 
 // routes
 export const ROUTES: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'products' },
   {
     path: 'products',
-    loadChildren: () => import('./../products/products.module').then(() => ProductsModule),
+    loadChildren: () => import('./../products/products.module').then(() => ProductsModule)
   },
 ];
 
